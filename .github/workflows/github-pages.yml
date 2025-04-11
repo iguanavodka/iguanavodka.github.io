@@ -4,25 +4,26 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
   pages: write
   id-token: write
+
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout 🛎️
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          persist-credentials: false
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
-          folder: ./
           branch: gh-pages
+          folder: .
           clean: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Deploy site update [skip ci]"

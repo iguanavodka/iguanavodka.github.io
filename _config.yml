@@ -1,11 +1,26 @@
 title: My Website
 description: A landing page for my website
 baseurl: ""
+url: ""
+
+# GitHub Pages settings
+lsi: false
+safe: true
+source: .
+incremental: false
+highlighter: rouge
+gist:
+  noscript: false
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
 
 # Jekyll settings
-permalink: pretty
-include: [".htaccess"]
-exclude: ["README.md", "LICENSE"]
+remote_theme: pages-themes/cayman@v0.2.0
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-remote-theme
 
 # Navigation - keeping it empty until site is built out
 navigation:
@@ -18,3 +33,11 @@ defaults:
       path: ""
     values:
       layout: default
+
+# Explicitly include these files
+include:
+  - .htaccess
+  - _pages
+  - "*.html"
+  - "*.css"
+  - "*.js"

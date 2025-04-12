@@ -1,8 +1,7 @@
 {
   "name": "iguanavodka.github.io",
   "version": "1.0.0",
-  "description": "This is a simple landing page website hosted on GitHub Pages.",
-  "main": "script.js",
+  "description": "A modern Next.js website with enhanced functionality",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,7 +13,13 @@
     "type": "git",
     "url": "git+https://github.com/iguanavodka/iguanavodka.github.io.git"
   },
-  "keywords": [],
+  "keywords": [
+    "nextjs",
+    "react",
+    "website",
+    "portfolio",
+    "github-pages"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {

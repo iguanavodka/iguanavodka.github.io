@@ -1,0 +1,25 @@
+{
+  "name": "iguanavodka.github.io",
+  "version": "1.0.0",
+  "description": "This is a simple landing page website hosted on GitHub Pages.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iguanavodka/iguanavodka.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iguanavodka/iguanavodka.github.io/issues"
+  },
+  "homepage": "https://github.com/iguanavodka/iguanavodka.github.io#readme",
+  "dependencies": {
+    "next": "^15.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}

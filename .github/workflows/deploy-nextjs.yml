@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4 # Use latest major version
+        uses: actions/checkout@v4
 
       - name: Detect Package Manager
         id: detect-package-manager
@@ -36,46 +36,55 @@ jobs:
             echo "manager=yarn" >> $GITHUB_OUTPUT
             echo "command=install" >> $GITHUB_OUTPUT
             echo "runner=yarn" >> $GITHUB_OUTPUT
+            echo "lockfile=yarn.lock" >> $GITHUB_OUTPUT # Output lockfile name
             exit 0
           elif [ -f "${{ github.workspace }}/pnpm-lock.yaml" ]; then
             echo "manager=pnpm" >> $GITHUB_OUTPUT
             echo "command=install" >> $GITHUB_OUTPUT
             echo "runner=pnpm" >> $GITHUB_OUTPUT
+            echo "lockfile=pnpm-lock.yaml" >> $GITHUB_OUTPUT # Output lockfile name
             exit 0
           else
             echo "manager=npm" >> $GITHUB_OUTPUT
+            # Use ci for faster, cleaner installs in CI
             echo "command=ci" >> $GITHUB_OUTPUT
             echo "runner=npx" >> $GITHUB_OUTPUT
+            echo "lockfile=package-lock.json" >> $GITHUB_OUTPUT # Output lockfile name
             exit 0
           fi
 
       - name: Setup Node
-        uses: actions/setup-node@v4 # Use latest major version
+        uses: actions/setup-node@v4
         with:
           node-version: "20" # Specify your Node.js version
+          # Cache node_modules based on lock file hash and OS
           cache: ${{ steps.detect-package-manager.outputs.manager }}
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5 # Use latest major version
+        uses: actions/configure-pages@v5
 
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
 
+      # --- START: Add Cache Step ---
+      - name: Restore Next.js cache
+        uses: actions/cache@v4
+        with:
+          # Cache directory specified by Next.js: https://nextjs.org/docs/app/building-your-application/deploying#configuring-caching
+          path: ${{ github.workspace }}/.next/cache
+          # Generate key based on OS, lock file hash, and potentially other factors
+          key: ${{ runner.os }}-nextjs-${{ hashFiles(steps.detect-package-manager.outputs.lockfile) }}
+          # Fallback restore key
+          restore-keys: |
+            ${{ runner.os }}-nextjs-
+      # --- END: Add Cache Step ---
+
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         # Ensure your next.config.js has "output: 'export'"
-        # If your site is served from a subpath (e.g., username.github.io/repo),
-        # ensure basePath is set in next.config.js and potentially assetPrefix.
-
-      # Optionally add linting or testing steps here
-      # - name: Run linter
-      #   run: ${{ steps.detect-package-manager.outputs.runner }} lint
-      #
-      # - name: Run tests
-      #   run: ${{ steps.detect-package-manager.outputs.runner }} test
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3 # Use latest major version
+        uses: actions/upload-pages-artifact@v3
         with:
           # Upload the output directory from the Next.js static export
           path: ./out
@@ -90,4 +99,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # Use latest major version
+        uses: actions/deploy-pages@v4

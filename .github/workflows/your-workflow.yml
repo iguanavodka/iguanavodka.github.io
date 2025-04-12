@@ -1,0 +1,14 @@
+# Example structure - your actual step might differ
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4 # <-- Update this line
+        with:
+          # ... your specific inputs like name and path
+          name: my-artifact
+          path: ./path/to/artifact
+          # Note: Some inputs might have changed slightly between v3 and v4,
+          #       Check the v4 documentation if you encounter issues after updating.
+          #       https://github.com/actions/upload-artifact/tree/v4

@@ -4,7 +4,11 @@
   "description": "This is a simple landing page website hosted on GitHub Pages.",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next build"
   },
   "repository": {
     "type": "git",

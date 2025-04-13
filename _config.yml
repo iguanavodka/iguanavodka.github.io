@@ -1,10 +1,10 @@
 title: My Website
 description: A landing page for my website
 baseurl: ""
-url: ""
+url: "https://deliberateallure.com"
 
 # GitHub Pages settings
-lsi: false
+lsi: falseß
 safe: true
 source: .
 incremental: false

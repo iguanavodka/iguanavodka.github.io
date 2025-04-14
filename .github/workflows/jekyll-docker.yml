@@ -1,3 +1,4 @@
+```yaml
 name: GitHub Pages
 
 on:
@@ -31,9 +32,8 @@ jobs:
           bundler-cache: true # Cache dependencies for faster builds
 
       - name: Build Jekyll site
-        # Removed --baseurl because this is a user page repository (e.g., username.github.io)
-        # Jekyll typically defaults to the correct baseurl ("/" or "") for user pages.
-        run: bundle exec jekyll build
+        run: bundle exec jekyll build --baseurl "${{ github.event.repository.name }}"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
@@ -42,3 +42,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+```

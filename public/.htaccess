@@ -1,7 +1,0 @@
-# Redirect all requests to index.html except for specific files
-RewriteEngine On
-RewriteCond %{REQUEST_URI} !^/index\.html$
-RewriteCond %{REQUEST_URI} !^/styles\.css$
-RewriteCond %{REQUEST_URI} !^/404\.html$
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ /index.html [L,R=302]
